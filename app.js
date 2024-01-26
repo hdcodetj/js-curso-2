@@ -9,8 +9,12 @@ function exibirTextoNaTela(tag, texto) {
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
 }
+
+function exibirTextoInicial() {
 exibirTextoNaTela('h1', 'Jogo Secreto');
 exibirTextoNaTela('.texto__paragrafo', 'Escolha um texto de 1 a 100');
+}
+exibirTextoInicial()
 
 function verificarChute() {
     let chute = document.querySelector('.container__input').value;
@@ -36,4 +40,12 @@ function gerarNumero() {
 function limparChute() {
     chute = document.querySelector('.container__input');
     chute.value = "";
+}
+
+function reiniciarJogo() {
+    numeroSecreto = gerarNumero();
+    limparChute();
+    tentativas = 1;
+    exibirTextoInicial();
+    document.getElementById('reiniciar').setAttribute('disabled',true)
 }
