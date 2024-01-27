@@ -3,16 +3,20 @@
 
 // let paragrafo = document.querySelector('.texto__paragrafo')
 // paragrafo.innerHTML = 'Escolha um número entre 1 e 10'
-let numeroSecreto = gerarNumero()
+let listaDeNumerosVazios = [];
+let limiteMaximo = 10
+let numeroSecreto = gerarNumero();
 let tentativas = 1;
+
 function exibirTextoNaTela(tag, texto) {
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
+    responsiveVoice.speak(texto, 'Brazilian Portuguese Female', {rate:1.2})
 }
 
 function exibirTextoInicial() {
 exibirTextoNaTela('h1', 'Jogo Secreto');
-exibirTextoNaTela('.texto__paragrafo', 'Escolha um texto de 1 a 100');
+exibirTextoNaTela('.texto__paragrafo', 'Escolha um texto de 1 a 10');
 }
 exibirTextoInicial()
 
@@ -34,7 +38,18 @@ function verificarChute() {
 }
 
 function gerarNumero() {
-    return parseInt(Math.random() * 10 + 1);
+    let numeroEscolhido = parseInt(Math.random() * limiteMaximo + 1);
+    let quantidadeDeElementosNaLista = listaDeNumerosVazios.length;
+    if (quantidadeDeElementosNaLista == limiteMaximo) {
+        listaDeNumerosVazios = []
+    }
+    if (listaDeNumerosVazios.includes(numeroEscolhido)) {
+        return gerarNumero();
+    } else {
+        listaDeNumerosVazios.push(numeroEscolhido)
+        console.log(listaDeNumerosVazios)
+        return numeroEscolhido;
+    }
 }
 
 function limparChute() {
